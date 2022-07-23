@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 import io.thp.pyotherside 1.4
+import QtQuick.LocalStorage 2.7
 
 MainView {
     id: root
@@ -29,6 +30,9 @@ MainView {
 
     width: units.gu(45)
     height: units.gu(75)
+
+    property var db: null
+    property string entryTable: "ItemEntryTable"
 
     Page {
         anchors.fill: parent
@@ -51,7 +55,11 @@ MainView {
 
             onAccepted: {
                 console.log("Entered text " + entryField.text)
-                model.append({ 'entry' : entryField.text} )
+                var entry = entryField.text 
+                db.transaction(function(tx){
+                    tx.executeSql("INSERT INTO " + entryTable + "(entry) VALUES( ? )", [entry])
+                })
+                model.append({ 'entry' : entry} )
             }
         }
 
@@ -70,7 +78,11 @@ MainView {
 
             onClicked: {
                 console.log("Entered text " + entryField.text)
-                model.append({ 'entry' : entryField.text} )
+                var entry = entryField.text 
+                db.transaction(function(tx){
+                    tx.executeSql("INSERT INTO " + entryTable + "(entry) VALUES( ? )", [entry])
+                })
+                model.append({ 'entry' : entry} )
             }
         }
 
@@ -96,6 +108,30 @@ MainView {
                 Text {
                     text: entry
                 }
+            }
+
+            Component.onCompleted: {
+                initializeDB();
+            }
+
+            function initializeDB() {
+                var dbName = "MCH2022DB"
+                var dbVersion = "1.0te"
+                var dbDescription = "Database for todo list"
+                var dbEstimatedSize = 1000;
+
+                db = LocalStorage.openDatabaseSync(dbName, dbVersion, dbDescription, dbEstimatedSize)
+
+                db.transaction(function(tx){
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS " + entryTable + "( entry TEXT)")
+                    var results = tx.executeSql( 'SELECT rowid, entry FROM ' + entryTable)
+
+                    // update the list model
+                    for (var i = 0; i < results.rows.length; i++) {
+                        model.append({"rowid": results.rows.item(i).rowid, 
+                                      "entry": results.rows.item(i).entry})
+                    }
+                })
             }
 
         }

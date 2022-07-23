@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mch2022.myname\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-23 14:08+0000\n"
+"POT-Creation-Date: 2022-07-23 14:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:38 mch2022.desktop.in.h:1
+#: ../qml/Main.qml:42 mch2022.desktop.in.h:1
 msgid "MCH 2022"
 msgstr ""
 
-#: ../qml/Main.qml:60
+#: ../qml/Main.qml:68
 msgid "Submit"
 msgstr ""
