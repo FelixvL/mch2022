@@ -38,9 +38,18 @@ MainView {
             title: i18n.tr('MCH 2022')
         }
 
-        Label {
+        Button {
+            id: submitButton
+            text: i18n.tr('Submit')
+
             anchors {
                 top: header.bottom
+            }
+        }
+
+        Label {
+            anchors {
+                top: submitButton.bottom
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
