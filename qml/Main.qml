@@ -48,11 +48,17 @@ MainView {
                 topMargin: units.gu(2)
                 leftMargin: units.gu(2)
             }
+
+            onAccepted: {
+                console.log("Entered text " + entryField.text)
+                model.append({ 'entry' : entryField.text} )
+            }
         }
 
         Button {
             id: submitButton
             text: i18n.tr('Submit')
+            color: entryField.text
 
             anchors {
                 top: header.bottom
@@ -68,46 +74,44 @@ MainView {
             }
         }
 
-ListView {
-    id: listOfTodos
+        ListView {
+            id: listOfTodos
 
-    anchors {
-        top: entryField.bottom
-        left: parent.left
-        right: parent.right
-        bottom: parent.bottom
+            anchors {
+                top: entryField.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
 
-        margins: units.gu(2)
-    }
+                margins: units.gu(2)
+            }
 
-    model: ListModel {
-        id: model
+            model: ListModel {
+                id: model
+            }
 
-        // will be explained later
-        property var addItem: null
-    }
+            delegate: ListItem {
+                width: parent.width
+                height: units.gu(3)
+                Text {
+                    text: entry
+                }
+            }
 
-    delegate: ListItem {
-        width: parent.width
-        height: units.gu(3)
-        Text {
-            text: entry
         }
-    }
 
-}
-        // Label {
-        //     anchors {
-        //         top: entryField.bottom
-        //         left: parent.left
-        //         right: parent.right
-        //         bottom: parent.bottom
-        //     }
-        //     text: i18n.tr('Check the logs!')
+        Label {
+            anchors {
+                top: header.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            text: entryField.text
 
-        //     verticalAlignment: Label.AlignVCenter
-        //     horizontalAlignment: Label.AlignHCenter
-        // }
+            verticalAlignment: Label.AlignVCenter
+            horizontalAlignment: Label.AlignHCenter
+        }
     }
 
     Python {
