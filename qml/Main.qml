@@ -38,20 +38,32 @@ MainView {
             title: i18n.tr('MCH 2022')
         }
 
+        TextField {
+            id: entryField
+
+            anchors {
+                top: header.bottom
+                left: parent.left
+
+                topMargin: units.gu(2)
+                leftMargin: units.gu(2)
+            }
+        }
+
         Button {
             id: submitButton
             text: i18n.tr('Submit')
 
             anchors {
                 top: header.bottom
+                left: entryField.right
+                
+                topMargin: units.gu(2)
+                leftMargin: units.gu(1)
             }
-        }
 
-        TextField {
-            id: entryField
-
-            anchors {
-                top: submitButton.bottom
+            onClicked: {
+                console.log("Entered text " + entryField.text)
             }
         }
 
