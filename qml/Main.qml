@@ -64,21 +64,50 @@ MainView {
 
             onClicked: {
                 console.log("Entered text " + entryField.text)
+                model.append({ 'entry' : entryField.text} )
             }
         }
 
-        Label {
-            anchors {
-                top: entryField.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            text: i18n.tr('Check the logs!')
+ListView {
+    id: listOfTodos
 
-            verticalAlignment: Label.AlignVCenter
-            horizontalAlignment: Label.AlignHCenter
+    anchors {
+        top: entryField.bottom
+        left: parent.left
+        right: parent.right
+        bottom: parent.bottom
+
+        margins: units.gu(2)
+    }
+
+    model: ListModel {
+        id: model
+
+        // will be explained later
+        property var addItem: null
+    }
+
+    delegate: ListItem {
+        width: parent.width
+        height: units.gu(3)
+        Text {
+            text: entry
         }
+    }
+
+}
+        // Label {
+        //     anchors {
+        //         top: entryField.bottom
+        //         left: parent.left
+        //         right: parent.right
+        //         bottom: parent.bottom
+        //     }
+        //     text: i18n.tr('Check the logs!')
+
+        //     verticalAlignment: Label.AlignVCenter
+        //     horizontalAlignment: Label.AlignHCenter
+        // }
     }
 
     Python {
