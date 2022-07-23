@@ -47,9 +47,17 @@ MainView {
             }
         }
 
-        Label {
+        TextField {
+            id: entryField
+
             anchors {
                 top: submitButton.bottom
+            }
+        }
+
+        Label {
+            anchors {
+                top: entryField.bottom
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
